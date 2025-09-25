@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import InputFields from "@/components/InputFields";
 import Checkbox from "expo-checkbox";
 import { Link } from "expo-router";
-import { ArrowDownUp, EyeOff, LockKeyhole, Mail } from "lucide-react-native";
+import { ArrowDownUp, Eye, EyeOff, LockKeyhole, Mail } from "lucide-react-native";
 import React, { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
@@ -13,9 +13,20 @@ import GoogleIcon from "@/assets/icons/google.svg";
 
 const login = () => {
   const [rememberMe, setRememberMe] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    console.log("Login button pressed");
+    if (!email.trim()) {
+      alert("Please enter your email");
+      return;
+    }
+    if (!password.trim()) {
+      alert("Please enter your password");
+      return;
+    }
+    console.log("Login attempt:", { email, rememberMe });
   };
 
   return (
@@ -32,8 +43,34 @@ const login = () => {
 
       {/* Credential Inputs */}
       <View className="w-full flex-col mt-5 gap-4">
-        <InputFields icon={Mail} placeholder="Email" endIcon={ArrowDownUp} />
-        <InputFields icon={LockKeyhole} placeholder="Password" endIcon={EyeOff}/>
+        <InputFields 
+          icon={Mail} 
+          placeholder="Email" 
+          endIcon={ArrowDownUp}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <View className="relative">
+          <InputFields 
+            icon={LockKeyhole} 
+            placeholder="Password" 
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+          />
+          <Pressable 
+            onPress={() => setShowPassword(!showPassword)}
+            className="absolute right-4 top-1/2 -translate-y-1/2"
+            style={{ transform: [{ translateY: -10 }] }}
+          >
+            {showPassword ? 
+              <EyeOff size={20} color="rgba(180, 187, 199, 1)" /> : 
+              <Eye size={20} color="rgba(180, 187, 199, 1)" />
+            }
+          </Pressable>
+        </View>
       </View>
 
       {/* Quicklinks */}
