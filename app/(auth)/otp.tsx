@@ -1,11 +1,30 @@
 import Button from "@/components/Button";
 import OtpInput from "@/components/OtpInput";
-import React from "react";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
+import { Text, View, Alert } from "react-native";
 
 const otp = () => {
+  const [otpCode, setOtpCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleContinue = () => {
-    console.log("Continue Clicked!");
+    if (otpCode.length !== 6) {
+      Alert.alert("Error", "Please enter the complete 6-digit OTP code");
+      return;
+    }
+    
+    setIsLoading(true);
+    console.log("OTP Code:", otpCode);
+    // TODO: Implement OTP verification API call
+    setTimeout(() => {
+      setIsLoading(false);
+      // Navigate to next step or home screen
+    }, 2000);
+  };
+
+  const handleResendOTP = () => {
+    console.log("Resending OTP...");
+    // TODO: Implement resend OTP API call
   };
 
   return (
@@ -22,18 +41,32 @@ const otp = () => {
 
       {/* OTP Input */}
       <View className="w-full mt-5">
-        <OtpInput onTextChange={(code) => console.log(code)} />
+        <OtpInput 
+          onTextChange={(code) => {
+            setOtpCode(code);
+            console.log("OTP Code:", code);
+          }} 
+        />
       </View>
 
       {/* Dont Have an Account? */}
       <View className="w-full flex-row justify-center gap-1 my-2">
         <Text className="font-roboto">Didn't get the code?</Text>
-        <Text className="text-primary underline font-roboto">Resend it</Text>
+        <Text 
+          className="text-primary underline font-roboto"
+          onPress={handleResendOTP}
+        >
+          Resend it
+        </Text>
       </View>
 
       {/* Login Button */}
       <View className="w-full mt-5">
-        <Button label="Continue" onPress={handleContinue} />
+        <Button 
+          label={isLoading ? "Verifying..." : "Continue"} 
+          onPress={handleContinue}
+          className={isLoading ? "opacity-70" : ""}
+        />
       </View>
     </View>
   );

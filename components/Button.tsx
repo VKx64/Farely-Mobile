@@ -7,13 +7,14 @@ interface ButtonProps extends PressableProps {
   textClassName?: string;
 }
 
-const Button = ({ label, onPress, className, textClassName }: ButtonProps) => {
+const Button = ({ label, onPress, className, textClassName, ...props }: ButtonProps) => {
   return (
     <Pressable
       onPress={onPress}
-      className={'w-full bg-primary items-center justify-center py-4 rounded-md active:opacity-80'}
+      className={`w-full bg-primary items-center justify-center py-4 rounded-md active:opacity-80 ${className || ''}`}
+      {...props}
     >
-      <Text className={'text-white font-roboto text-xl'}>
+      <Text className={`text-white font-roboto text-xl ${textClassName || ''}`}>
         {label}
       </Text>
     </Pressable>

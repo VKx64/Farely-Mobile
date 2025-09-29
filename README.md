@@ -101,4 +101,4 @@ We welcome contributions! Please follow this process to contribute:
 
 4.  **Create a Pull Request:** Open a pull request from your feature branch to the `staging` branch. Once your changes are reviewed and merged into `staging`, a separate pull request will be made from `staging` to `main` for deployment.
 
-The [`enforce-staging-pr.yml`](.github/workflows/enforce-staging-pr.yml) workflow will automatically check that pull requests to `main` are
+The [`enforce-staging-pr.yml`](.github/workflows/enforce-staging-pr.yml) workflow will automatically check that pull requests to `main` are only created from the `staging` branch, enforcing the required branching strategy.
