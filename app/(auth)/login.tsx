@@ -33,7 +33,11 @@ const login = () => {
       {/* Credential Inputs */}
       <View className="w-full flex-col mt-5 gap-4">
         <InputFields icon={Mail} placeholder="Email" endIcon={ArrowDownUp} />
-        <InputFields icon={LockKeyhole} placeholder="Password" endIcon={EyeOff}/>
+        <InputFields
+          icon={LockKeyhole}
+          placeholder="Password"
+          endIcon={EyeOff}
+        />
       </View>
 
       {/* Quicklinks */}
@@ -64,7 +68,7 @@ const login = () => {
       {/* Dont Have an Account? */}
       <View className="w-full flex-row justify-center gap-1 my-2">
         <Text className="font-roboto">Don't have an account?</Text>
-        <Link href={"/register"}>
+        <Link href={"/userTypeSelection"}>
           <Text className="text-primary underline font-roboto">
             Sign up here
           </Text>

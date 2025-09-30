@@ -1,23 +1,36 @@
-import React from 'react';
-import { Pressable, PressableProps, Text } from 'react-native';
+import React from "react";
+import { Pressable, PressableProps, Text } from "react-native";
 
 interface ButtonProps extends PressableProps {
   label: string;
   className?: string;
   textClassName?: string;
+  disabled?: boolean;
 }
 
-const Button = ({ label, onPress, className, textClassName }: ButtonProps) => {
+const Button = ({
+  label,
+  onPress,
+  className,
+  textClassName,
+  disabled,
+}: ButtonProps) => {
   return (
     <Pressable
-      onPress={onPress}
-      className={'w-full bg-primary items-center justify-center py-4 rounded-md active:opacity-80'}
+      onPress={disabled ? undefined : onPress}
+      className={`w-full items-center justify-center py-4 rounded-md ${
+        disabled ? "bg-gray-300 opacity-50" : "bg-primary active:opacity-80"
+      }`}
     >
-      <Text className={'text-white font-roboto text-xl'}>
+      <Text
+        className={`font-roboto text-xl ${
+          disabled ? "text-gray-500" : "text-white"
+        }`}
+      >
         {label}
       </Text>
     </Pressable>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;
