@@ -1,11 +1,12 @@
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { Quicksand_400Regular, Quicksand_700Bold } from '@expo-google-fonts/quicksand';
 import { Roboto_400Regular, Roboto_700Bold, useFonts } from '@expo-google-fonts/roboto';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import "../global.css";
-import ErrorBoundary from '@/components/ErrorBoundary';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -32,11 +33,13 @@ export default function RootLayout() {
   }
 
   return (
-    <ErrorBoundary>
-      <Stack>
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-      </Stack>
-    </ErrorBoundary>
+    <SafeAreaProvider>
+      <ErrorBoundary>
+        <Stack>
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+        </Stack>
+      </ErrorBoundary>
+    </SafeAreaProvider>
   );
 }
